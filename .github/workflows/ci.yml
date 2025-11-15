@@ -2,7 +2,7 @@ name: CI Build and Push to GCP Artifact Registry
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
 
 jobs:
   build:
