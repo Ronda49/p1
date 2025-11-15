@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: p1-app
+  labels:
+    app: p1-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: p1-app
+  template:
+    metadata:
+      labels:
+        app: p1-app
+    spec:
+      containers:
+      - name: p1-app
+        image: us-central1-docker.pkg.dev/sudharshan-477403/next-app-repo/p1:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: NODE_ENV
+          value: production

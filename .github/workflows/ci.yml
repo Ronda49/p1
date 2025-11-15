@@ -1,0 +1,32 @@
+name: CI Build and Push to GCP Artifact Registry
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Configure Docker
+        run: |
+          gcloud auth configure-docker us-central1-docker.pkg.dev
+
+      - name: Build Docker Image
+        run: |
+          IMAGE="us-central1-docker.pkg.dev/sudharshan-477403/next-app-repo/p1:${GITHUB_SHA}"
+          echo "IMAGE=$IMAGE" >> $GITHUB_ENV
+          docker build -t $IMAGE .
+
+      - name: Push Docker Image
+        run: |
+          docker push ${{ env.IMAGE }}
