@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: p1-app
-        image: us-central1-docker.pkg.dev/sudharshan-477403/next-app-repo/p1:latest
+        image: us-central1-docker.pkg.dev/sudharshan-477403/next-app-repo/p1:5e55a5f351da42492203ff6e38795fa0c68b4d79
         ports:
         - containerPort: 3000
